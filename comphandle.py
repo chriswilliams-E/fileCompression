@@ -16,10 +16,8 @@ compressedOutFile.write(deflateData)
 compressedOutFile.close()
 
 compressedInFile = open('%s-comp' % fileName, 'rb').read()
-print('Inflating %s' % compressedInFile)
 inflateData = zlib.decompress(compressedInFile)
 
 inflatedFile = open('%s-df' % fileName, 'wb')
 print('Inflated data is being written to: %s-df' % fileName)
 inflatedFile.write(inflateData)
-inflateData.close()
