@@ -1,46 +1,25 @@
 #!/usr/bin/python3
 
 import zlib
+import os
 
-fileName = input('Enter name of zlib file: ' )
+fileName = input('Enter name of file: ')
 
 compzFile = open(fileName, 'rb').read()
 print('Deflating %s' % fileName)
 deflateData = zlib.compress(compzFile, zlib.Z_BEST_COMPRESSION)
-#print(len(compzFile))
 compress_ratio = (float(len(compzFile)) - float(len(deflateData))) / float(len(compzFile))  
 print('Compressed: %d%%' % (100.0 * compress_ratio))
 
-compressedOutFile = open(fileName + '.dat', 'wb')
+compressedOutFile = open('%s-comp' % fileName, 'wb')
 compressedOutFile.write(deflateData)
 compressedOutFile.close()
 
+compressedInFile = open('%s-comp' % fileName, 'rb').read()
+print('Inflating %s' % compressedInFile)
+inflateData = zlib.decompress(compressedInFile)
 
-'''
-def deflater(fileToDeflate):
-    compzFile = open(fileToDeflate, 'rb').read()
-    print('Deflating %s' % fileToDeflate)
-    deflateData = zlib.compress(compzFile, zlib.Z_BEST_COMPRESSION)
-    #print(len(compzFile))
-    compress_ratio = (float(len(compzFile)) - float(len(deflateData))) / float(len(compzFile))  
-    print('Compressed: %d%%' % (100.0 * compress_ratio))
-
-    compressedOutFile = open(fileName + '.dat', 'w')
-    compressedOutFile.write(str(deflateData))
-    compressedOutFile.close()
-
-deflater(fileName)
-'''
-'''
-zFile = open(fileName, 'rb')
-print('Inflating %s' % fileName)
-inflateData = zlib.decompress(zFile.read())
-zFile.close()
-
-inflatedFile = open('%s-df' % fileName, 'w')
-print('Inflated data is being written to: %s' % inflatedFile)
+inflatedFile = open('%s-df' % fileName, 'wb')
+print('Inflated data is being written to: %s-df' % fileName)
 inflatedFile.write(inflateData)
-inflatedData.close()
-'''
-
-    
+inflateData.close()
