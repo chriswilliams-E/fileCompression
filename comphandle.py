@@ -4,6 +4,19 @@ import zlib
 
 fileName = input('Enter name of zlib file: ' )
 
+compzFile = open(fileName, 'rb').read()
+print('Deflating %s' % fileName)
+deflateData = zlib.compress(compzFile, zlib.Z_BEST_COMPRESSION)
+#print(len(compzFile))
+compress_ratio = (float(len(compzFile)) - float(len(deflateData))) / float(len(compzFile))  
+print('Compressed: %d%%' % (100.0 * compress_ratio))
+
+compressedOutFile = open(fileName + '.dat', 'wb')
+compressedOutFile.write(deflateData)
+compressedOutFile.close()
+
+
+'''
 def deflater(fileToDeflate):
     compzFile = open(fileToDeflate, 'rb').read()
     print('Deflating %s' % fileToDeflate)
@@ -17,7 +30,7 @@ def deflater(fileToDeflate):
     compressedOutFile.close()
 
 deflater(fileName)
-
+'''
 '''
 zFile = open(fileName, 'rb')
 print('Inflating %s' % fileName)
