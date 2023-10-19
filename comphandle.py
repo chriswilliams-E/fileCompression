@@ -2,23 +2,23 @@
 
 import zlib
 
-def deflateFiles(fileName):
-    compzFile = open(fileName, 'rb').read()
-    print('Deflating %s' % fileName)
+def deflateFiles(d_fileName):
+    compzFile = open(d_fileName, 'rb').read()
+    print('Deflating %s' % d_fileName)
     deflateData = zlib.compress(compzFile, zlib.Z_BEST_COMPRESSION)
     compress_ratio = (float(len(compzFile)) - float(len(deflateData))) / float(len(compzFile))  
     print('Compressed: %d%%' % (100.0 * compress_ratio))
 
-    compressedOutFile = open('%s-comp' % fileName, 'wb')
+    compressedOutFile = open('%s-comp' % d_fileName, 'wb')
     compressedOutFile.write(deflateData)
     compressedOutFile.close()
 
-def inflateFiles(fileName):
-    compressedInFile = open('%s-comp' % fileName, 'rb').read()
+def inflateFiles(i_fileName):
+    compressedInFile = open('%s' % i_fileName, 'rb').read()
     inflateData = zlib.decompress(compressedInFile)
 
-    inflatedFile = open('%s-df' % fileName, 'wb')
-    print('Inflated data is being written to: %s-df' % fileName)
+    inflatedFile = open('%s-df' % i_fileName, 'wb')
+    print('Inflated data is being written to: %s-df' % i_fileName)
     inflatedFile.write(inflateData)
 
 def main():
@@ -28,7 +28,7 @@ def main():
         dFile = input('choose a file to compress: ')
         deflateFiles(dFile)
     elif cmd == 'decompress':
-        iFile = ('Choose a file to inflate: ')
+        iFile = input('Choose a file to inflate: ')
         inflateFiles(iFile)
     else:
         print('Invalid command. Please choose to compress a file or decompress a file.')
